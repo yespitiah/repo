@@ -1,0 +1,1109 @@
+<HTML ng-app='middlewareL2'>
+
+<HEAD>
+
+    <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap0.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css.map">-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css.map">-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-grid.min.css.map">-->
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css.map">-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="css/docsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="css/docs.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="js/moment-with-locales.js"></script>
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <!--<script src="js/popper.min.js"></script>-->
+    <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/lodash.js"></script>
+    <TITLE>WikiL2 Middleware CTI </TITLE>
+</HEAD>
+
+<BODY class="body">
+    <script type="text/javascript">
+
+            //if (!window.isIE)alert("Please use CHROME!!!");
+
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            alert("Sorry! Please use CHROME!!!");
+
+        }
+    </script>
+    <div align="center">
+<header>
+<div>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top  bg-dark">
+     <img src="img/logoCiti.png" alt="Citi CTI" id='logo'>
+     <style>
+a{text-decoration:none; color:#175F9A; coursor:pointer;}
+a:hover{color:#2797D6;}
+a:visited{color:#175F9A;}
+.msgSectionItem:first-child {
+    border-left:0;
+}
+.msgAlertQty
+{
+    display:inline-block;
+    position:absolute;
+    font-family:Arial, Sans-Serif;
+    width:15px;
+    height:15px;
+    border:0;
+    font-weight:bold;
+    padding:2px 0 0 0;
+    text-align:center;
+    font-size:9px;
+    background:#b20000;
+    color:#fff;
+    border-radius:50% 50% 50% 0;
+    margin:-15px 0 0 -7px;
+    box-sizing:border-box;
+    behavior: url(Styles/PIE.htc);
+}
+</style>
+<div class="blink">
+     <a href='#' id="alerts"  class="navbar-brand blink">Attention L2<sup><span id="alertQty" class="msgAlertQty"></span></sup>
+     </a>
+</div>
+<script>
+$.fn.flash = function(duration, iterations) {
+    duration = duration || 9000; // Default to 1 second
+    iterations = iterations || 1; // Default to 1 iteration
+    var iterationDuration = Math.floor(duration / iterations);
+
+    for (var i = 0; i < iterations; i++) {
+        this.fadeOut(iterationDuration).fadeIn(iterationDuration);
+    }
+    hr = new XMLHttpRequest();
+    url='http://10.116.37.33:6060/api/listAlerts';
+    hr.open("GET", url, true);
+    hr.onload = function ()  {
+      myObj = JSON.parse(hr.responseText);
+      $("#alertQty").html(myObj.length).append();
+    };
+    hr.send();
+
+    return this;
+}
+
+$.fn.alerts = function(duration) {
+
+    return "true";
+}
+
+
+$("#alerts").flash(4000, 10);
+
+</script>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+     <form class="was-validated">
+    <div class="custom-controls-stacked d-block my-3" id="divAddUpdate">
+             <table>
+            <tr>
+
+<td>
+    <a class="navbar-brand" href="rainbow/rainbow_console.html" target="_blank">RAINBOW</a>
+</td>
+<!--<td>
+         <a class="navbar-brand"   href="http://relww-prd5927/eam/EAMlinks/" target="_blank">REL</a>
+</td>-->
+
+<td>
+          <a class="navbar-brand"  href="./retail.html" target="_blank">REL/RETAIL</a>
+
+</td>
+<td>
+          <a class="navbar-brand"  href="#" id="linkDigital">DIGITAL</a>
+</td>
+        <td style="display:none;" id="navDigital">
+                                             <label class="custom-control custom-radio">
+                                             <input name="platform" type="radio" class="custom-control-input" required="" value="PCF">
+                                             <span class="custom-control-indicator"></span>
+                                             <span class="custom-control-description">PCF</span>
+                                             <label class="custom-control custom-radio">
+                                             <input name="platform" type="radio" class="custom-control-input" required="" value="GEMFIRE">
+                                             <span class="custom-control-indicator"></span>
+                                             <span class="custom-control-description">GEMFIRE</span>
+                                             <label class="custom-control custom-radio">
+                                             <input name="platform" type="radio" class="custom-control-input" required="" value="TOMCAT">
+                                             <span class="custom-control-indicator"></span>
+                                             <span class="custom-control-description">TOMCAT</span>
+                                             <label class="custom-control custom-radio">
+                                             <input name="platform" type="radio" class="custom-control-input" required="" value="WEBSPHERE">
+                                             <span class="custom-control-indicator"></span>
+                                             <span class="custom-control-description">WEBSPHERE</span>
+                    </td>
+        <td>
+              <div  id='RegList' class='targetReg'></div>
+        </td>
+                    <td>
+        <div  id='AppList' class='target'></div>
+        </td>
+                    <td>
+        <div id='envList' class='target6'></div>
+        </td>
+                    <tr>
+        </table>
+  </div>
+      </form>
+        </li>
+      </li>
+
+    </li>
+      </ul>
+    </div>
+  </nav>
+
+</div>
+</header>
+<div align='left'  class="ui-widget" style="visibility: Show"><br>
+<div class="bd-example">
+</div>
+</div>
+</div>
+<div class='IRow'>
+<div align='left' class='IColumn'>
+     <div class="container-fluid">
+			 <div id="divWAS" style="display:none;">
+			 <table class="table table-sm table-primary" >
+			   <thead>
+			     <tr>
+			       <th scope="col">App  Name</th>
+			       <th scope="col">ENVIROMENT</th>
+			       <th scope="col">USER CONSOLE</th>
+			       <th scope="col">CONSOLE</th>
+						 <th scope="col" th style="text-align:center">DOCUMENTATION</th>
+						 <th scope="col">WEB SERVERS</th>
+             <th scope="col">
+
+              <button type="button" class="btn  table-primary" data-toggle="tooltip" data-placement="top" title="send version report " style="display:none;" id="versionReportImg">
+  &#9752<img src="./img/versionR16.png" width="20"  />
+</button>
+<button type="button" class="btn  table-primary" data-toggle="tooltip" data-placement="top" title="get Thread or Heap dumps " style="display:none;" id="dumpsImg">
+&#9752<img src="./img/robot48.png" width="20"  />
+</button>
+            </th>
+             <!--<th scope="col"><img src="./img/versionR16.png" id="versionReportImg" style="display:none;"></th>-->
+			     </tr>
+			   </thead>
+         <button type="button" class="close" aria-label="Close" id="wasClose">
+                       <span aria-hidden="true">&times;</span>
+         </button>
+			   <tbody>
+			     <tr class="table-Active" id="tableWAS">
+
+			     </tr>
+				 </tbody>
+			 </table>
+			 <BR>
+      <ul class='nav justify-content-end' id='myTabHead' role='tablist'><li class='nav active justify-content-left'><button type='button' class='btn btn-outline-success btn-sm'  id="UpdateMainactivitiesDescFunction" disabled>Update</button></li><li class='nav active pull-left'><button type='button' class='btn btn-outline-dark btn-sm' id="AddTab">Add</button></li></ul>
+			<table width='100%' class="table table-sm table-primary">
+				 <thead>
+					 <tr id="tableWASDesc">
+
+					</tr>
+					</tbody>
+				</table>
+      </div>
+			<div id="divPCF" style="display:none;">
+						 <table class="table table-sm table-success">
+							 <thead>
+								 <tr>
+
+									 <th scope="col">ENVIROMENT</th>
+									 <th scope="col">JUMP Box</th>
+									 <th scope="col">Apps Manager</th>
+									 <th scope="col">SVN URL </th>
+									 <th scope="col">SVN URL STAGE</th>
+									 <th scope="col">APPD CONSOLE</th>
+									 <th scope="col">SPLUNK CONSOLE</th>
+								 </tr>
+							 </thead>
+							 <tbody>
+								 <tr class="table-Active"  id="tablePCF">
+								 </tr>
+							 </tbody>
+               <button type="button" class="close" aria-label="Close" id="pcfClose">
+                             <span aria-hidden="true">&times;</span>
+               </button>
+
+						 <table width='100%' class="table table-success table-primary"><tr height:'100px' ><td  width='95%' ><p class="text-center">DESCRIPTION</p></td><td><button type="button" class="btn btn-link"  id="PCFSupportLogs">Send Logs to Pivotal</button></td><td><button type="button" class="btn btn-link"  id="PCFSupport">Open PCF ticket</button></td><td><button type='button' class='btn-success btn-sm'  id='updateDesc'>Update</button></td></tr></table>
+
+						 <table class="table table-sm table-primary">
+							 <thead>
+								 <tr id="tablePCFDesc">
+								</tr>
+								</tbody>
+							</table>
+			   </div>
+				 <div id="divTOMCAT" style="display:none;">
+								<table class="table table-sm table-warning">
+									<thead>
+										<tr>
+
+											<th scope="col">ENVIROMENT</th>
+											<th scope="col">Servers</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="table-Active"  id="tableTOMCAT">
+										</tr>
+									</tbody>
+                  <button type="button" class="close" aria-label="Close" id="tomcatClose">
+                                <span aria-hidden="true">&times;</span>
+                  </button>
+
+								<table width='100%' class="table table-warning table-primary"><tr height:'100px' ><td  width='95%' ><p class="text-center">DESCRIPTION</p></td><td><button type="button" class="btn btn-link"  id="TOMCATSupportLogs">Send Logs to CATE</button></td><td><button type="button" class="btn btn-link"  id="TOMCATSupport">Open CATE ticket</button></td><td><button type='button' class='btn-warning btn-sm'  id='updateDescTOMCAT'>Update</button></td></tr></table>
+								<table class="table table-sm table-primary">
+									<thead>
+										<tr id="tableTOMCATDesc">
+									 </tr>
+									 </tbody>
+								 </table>
+						</div>
+						<div id="divGEMFIRE" style="display:none;">
+									 <table class="table table-sm table-info  bg-danger text-white">
+										 <thead>
+											 <tr>
+												 <th scope="col">ENVIROMENT</th>
+												 <th scope="col">CONSOLE</th>
+												 <th scope="col">Admin L</th>
+												 <th scope="col">Locator</th>
+												 <th scope="col">Cache</th>
+												 <th scope="col">Deploy</th>
+											 </tr>
+										 </thead>
+										 <tbody>
+											 <tr class="table-Active"  id="tableGEMFIRE">
+											 </tr>
+										 </tbody>
+                     <button type="button" class="close" aria-label="Close" id="gemfireClose">
+                                   <span aria-hidden="true">&times;</span>
+                     </button>
+
+									 <table width='100%' class="table table-info bg-danger text-white table-primary"><tr height:'100px' ><td  width='95%' ><p class="text-center">DESCRIPTION</p></td><td><button type="button" class="btn btn-link bg-danger text-white"  id="GPCFSupportLogs">Send Logs to Pivotal</button></td><td><button type="button" class="btn btn-link bg-danger text-white"  id="GPCFSupport">Open PCF ticket</button></td><td><button type='button' class='btn btn-danger'  id='updateDescGEMFIRE'>Update</button></td></tr></table>
+
+									 <table class="table table-sm table-primary">
+										 <thead>
+											 <tr id="tableGEMFIREDesc">
+											</tr>
+											</tbody>
+										</table>
+							 </div>
+               <div id="divALERTS" style="display:none;">
+       <table class="table table-sm table-success">
+         <thead>
+           <tr>
+             <th scope="col">Description</th>
+             <th scope="col">Date</th>
+             <th scope="col">Time</th>
+             <th scope="col">Detail</th>
+             <!--<th scope="col">Clear</th>-->
+           </tr>
+         </thead>
+         <button type="button" class="close" aria-label="Close" id="alertsClose">
+                       <span aria-hidden="true">&times;</span>
+         </button>
+         <tbody id="tableALERTS">
+
+         </tbody>
+
+       <table class="table table-sm table-primary">
+         <thead>
+           <tr id="tablePCFDesc">
+          </tr>
+          </tbody>
+        </table>
+   </div>
+	 </div>
+</div>
+<div align='left' class='IColumn2' id='Handover' >
+
+		<p>
+		  <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapse11" aria-expanded="false" aria-controls="collapseExample">
+
+		    ACTION TRACKER
+		  </button>
+
+			  <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapse22" aria-expanded="false" aria-controls="collapseExample">
+			    LESSONS LEARNT
+			  </button>
+
+				<button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapse33" aria-expanded="false" aria-controls="collapseExample">
+				  HANDOVERS
+				</button>
+				<button class="btn btn-outline-secondary"      type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapseExample">
+					OPERATION
+				</button>
+				<button type="button" class="btn btn-outline-secondaryr" data-toggle="modal" data-target="#exampleModalLabel" id="openTicket">
+					OPEN A  REQUEST
+				</button>
+		</p>
+		<div class="collapse" id="collapse1">
+		  <div class="card card-body">
+				<table>
+					<tr>
+						<tr><th>
+							<button class="btn btn-outline-success my-2 my-sm-0" id="addActionTrackerB" type="submit" value="Add Row" >Add</button>
+						</th><th>
+							<button id="deleteActionTrackerB" class="btn btn-outline-success my-2 my-sm-0" id="addActionTrackerB" type="submit" value="Add Row">Delete</button>
+						</th><th>
+							<input class="form-control mr-sm-2" type="search" placeholder="Search">
+						</th><th>
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						</th></tr>
+						</table>
+
+						<table class="table table-bordered table-striped,table table-hover" id="AddActionTracker">
+						  <thead class="table-primary">
+							<tr>
+							<th style="width: 150px;"><input type="text" id="desc" placeholder="Description"></th>
+			        <th><input type="text" id="soid" placeholder="Owner EX: ye09463"></th>
+			        <th>
+												<select class="form-control form-control-sm" id="LOB">
+								  							<option>DIGITAL</option>
+																<option>REL</option>
+																<option>RETAIL</option>
+																<option>RAINBOW</option>
+																<option selected="selected">NONE</option>
+
+												</select>
+							</th>
+			        <th><input type="text" id="date" placeholder="Date:"></th>
+			        <th><input type="text" id="status" placeholder="Status"></th>
+			        <th></th></tr>
+						</form>
+
+						</thead>
+						<tbody>
+							<tr></tr>
+						</tbody>
+					</table>
+
+		  </div>
+		</div>
+		<!-- /Lessons Learnt -->
+		<div class="collapse" id="collapse2">
+			<div class="card card-body">
+				<table>
+					<tr>
+						<tr><th>
+							<button class="btn btn-outline-primary" id="addLessonsB" type="submit" value="Add Row">Add</button>
+						</th><th>
+							<button id="deleteLessonsB" class="btn btn-outline-primary"  type="submit" value="Add Row">Delete</button>
+						</th><th>
+							<input class="form-control mr-sm-2" type="search" placeholder="Search">
+						</th><th>
+							<button class="btn btn-outline-primary" type="submit">Search</button>
+						</th></tr>
+						</table>
+						<table class="table table-bordered table-striped,table table-hover" id="AddActionTracker">
+						  <thead class="table-primary">
+							<tr>
+							<th style="width: 150px;"><input type="text" id="soid" placeholder="soid"></th>
+			        <th><input type="text" id="lob_lesson" placeholder="Description:"></th>
+			        <th><input type="text" id="category" placeholder="category"></th>
+			        <th><input type="text" id="issue_faced" placeholder="issue;"></th>
+			        <th><input type="text" id="resolution" placeholder="Resolution"></th>
+							<th><input type="text" id="application" placeholder="Application"></th>
+							<th><input type="text" id="date_issue_occurred" placeholder="Date:"></th>
+			        <th></th></tr>
+						</form>
+
+						</thead>
+						<tbody>
+							<tr></tr>
+						</tbody>
+					</table>
+        <!-- /Lessons Learnt -->
+			</div>
+		</div>
+		<div class="collapse" id="collapse3">
+			<div class="card card-body">
+				<!-- /Handover -->
+				<table>
+					<tr>
+						<tr><th>
+							<button class="btn btn-outline-secondary" id="addHandOverB" type="submit" value="Add Row">Add</button>
+						</th><th>
+							<button id="deleteHandOverB" class="btn btn-outline-secondary"  type="submit" value="Add Row">Delete</button>
+						</th><th>
+							<input class="form-control mr-sm-2" type="search" placeholder="Search">
+						</th><th>
+							<button class="btn btn-outline-secondary" type="submit">Search</button>
+						</th></tr>
+						</table>
+						<table class="table table-bordered table-striped,table table-hover" id="AddActionTracker">
+						  <thead class="table-primary">
+							<tr>
+							<th style="width: 150px;"><input type="text" id="appsName" placeholder="App/Proect Name:"></th>
+			        <th><input type="text" id="doc_handover" placeholder="Handover  doc: "></th>
+			        <th><input type="text" id="checkList" placeholder="checkList"></th>
+			        <th><input type="text" id="inventary" placeholder="Inventory"></th>
+			        <th><input type="text" id="dateGoLive" placeholder="Go live Date"></th>
+							<th><input type="text" id="completed" placeholder="Completed:Yes/No"></th>
+			        <th></th></tr>
+						</form>
+
+						</thead>
+						<tbody>
+							<tr></tr>
+						</tbody>
+					</table>
+			</div>
+		</div>
+		<div class="collapse" id="collapse4">
+			<div class="card card-body">
+				<div class="container-fluid" class="">
+
+					<table class="table table-sm">
+					  <thead>
+					    <tr>
+					      <th scope="col">Access Tools</th>
+					      <th scope="col">Service Now</th>
+					      <th scope="col">Offshore</th>
+								<th scope="col">Wikis Docs</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td><a href='http://batchtransmissionservices.citigroup.net/gcdi_view.aspx?ID=5330'  target=”_blank” class="btn btn-link">NDM Inventory</a></td>
+					      <td><a href="https://goo.gl/VjRJb4" target=”_blank” class="btn btn-link">CHGS</a></td>
+					      <td><a href='https://goo.gl/BzqpxD' target=”_blank” class="btn btn-link">Weekend CHG</a><!--<small id="weekEndId"></small>--></td>
+								<td><a href='http://goo.gl/62kpE9'  target=”_blank” class="btn btn-link">Pivotal Dojo</a></td>
+					    </tr>
+					    <tr>
+					      <td><a href='https://goo.gl/2maZKR' target=”_blank” class="btn btn-link">LOAD Balancer VIP</a></td>
+					      <td><a href='https://goo.gl/LNKXua' target=”_blank” class="btn btn-link">INC</a></td>
+								<td><a href='img/roster.JPG' class="btn btn-link" >Roster</a></td>
+								<td><a href='https://cedt-confluence.nam.nsroot.net/confluence/display/CATEEMT/Unified+Middleware+Engineering' target=”_blank” class="btn btn-link">Middleware Wiki</a></td>
+					    </tr>
+					    <tr>
+					      <td><a href='https://datacentertoolsaccess.ti.citigroup.net/stools/wais/EMERAccessRequestProcess.aspx' target=”_blank” class="btn btn-link">WAIS Token</a></td>
+					      <td><a href='https://goo.gl/4a1ayx' target=”_blank” class="btn btn-link">REQ</a></td>
+					      <td><a href='https://otshare.nam.citi.net/sites/gcgmwL2/Shared%20Documents/MIMs.xlsx?Web=1' target=”_blank” class="btn btn-link">MIM Tracker</a></td>
+								<td><a href='https://catecollaboration.citigroup.net/domains/security/isp_standards/dpstds/stdshmpgs/MicrosoftPKI.aspx' target=”_blank” class="btn btn-link">MicrosoftPKI</a></td>
+					    </tr>
+					    <tr>
+					      <td><a href='https://goo.gl/wX2MEb' target=”_blank” class="btn btn-link">CryptoReport</a></td>
+					      <td><a href='' target=”_blank” class="btn btn-link"></a></td>
+					      <td><a href='http://165.203.105.224:9000/Lessonslearnt/Lessons Learnt.xlsx' target=”_blank” class="btn btn-link">Action Tracker</a></td>
+								<td><a href='https://goo.gl/xD4mDx' target=”_blank” class="btn btn-link">XConfluence</a></td>
+					    </tr>
+					    <tr>
+								<td><a href='https://aperture.nam.nsroot.net/' target=”_blank” class="btn btn-link">APERTURE</a></td>
+					      <td><a href='https://splunk-search.wlb.nam.nsroot.net:8000' target=”_blank” class="btn btn-link"></a></td>
+								<td><a href='https://otshare.nam.citi.net/sites/gcgmwL2/SitePages/Home.aspx' target=”_blank” class="btn btn-link">MiddlewareL2 SharePoint</a></td>
+								<td><a href='https://otshare.nam.citi.net/sites/NGA/PCF/Forms/AllItems.aspx' target=”_blank” class="btn btn-link">L3 CTI Next Generation</a></td>
+					    </tr>
+					    <tr>
+					      <td><a href='http://whereismyid.nam.nsroot.net/' target=”_blank” class="btn btn-link">LDAP Search</a></td>
+					      <td><a></a></td>
+					      <td><a ></a></td>
+                <td><a></a></td>
+					    </tr>
+							<tr>
+								<td><a href='https://citiautomationservices.citigroup.net/mst/home.jsp#/' target=”_blank” class="btn btn-link">CAS</a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+							</tr>
+							<tr>
+								<td><a href='https://login.run.pivotal.io/login' target=”_blank” class="btn btn-link">Open PCF ticket</a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+							</tr>
+							<tr>
+								<td><a href='https://securefiles.pivotal.io/dropzone/customer-service/' target=”_blank” class="btn btn-link" >Send Logs to Pivotal</a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+								<td><a></a></td>
+							</tr>
+					  </tbody>
+					</table>
+         <table class="table table-sm table-light">
+					 <thead>
+						 <tr>
+							 <th scope="col">SOFTWARE</th>
+						 </tr>
+					 </thead>
+				 <tbody>
+					<tr>
+						<td><a href='soft/MiddlewareL2_ebiz.dat' class="btn btn-link" download>Putty CM DB V1.0<a></td>
+					</tr>
+					<tr>
+						<td><a href='soft/MiddlewareL2_ebiz.dat' class="btn btn-link" download>MTPuTTY  DB V1.0<a></td>
+					</tr>
+				</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h5><p align="center"><font class="Undernote"><em>V1.5 Last Updated 04/20/2018</em><a href='https://goo.gl/uqaZCt' target='_private'>.</a></font><font color="#ffffff" class="Undernote"></font></p>
+</BODY>
+</HTML>
+
+
+<script type="text/javascript">
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+$("#linkDigital").click( function()
+                 {
+  $("#navDigital").attr("style", "")
+                 }
+);
+
+
+$("#openTicket").click( function()
+		 {
+			var url='http://10.116.37.33:6060/form_osr.html';
+			window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=500,left=500,width=420,height=420");
+		 }
+);
+
+$("#addUpdateInv").click( function()
+		 {
+			var url='http://10.116.37.33:6060/AddInventory.html';
+			window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=350,left=500,width=720,height=620");
+		 }
+);
+
+		 $("[type=radio]").change(function() {
+	 		 v_platform = $(":checked").val();
+	 		 var hr = new XMLHttpRequest();
+			 var myObj;
+			 var regList;
+			 var url='http://10.116.37.33:6060/api/application/regions/'+ v_platform;
+	 		 hr.open("GET", url, true);
+	 		 hr.onload = function () {
+			                           myObj = JSON.parse(hr.responseText);
+																 for(var i=0;i<myObj.length;i++){
+													 			   regList = '<option value='+ myObj[i] +'>'+ myObj[i] +'</option>' + regList
+
+														 	}
+                              $("#searchApp").attr("style", "display:none;")
+                              $("#RegList").html("&emsp;<select id='regL' class='custom-select'><option selected>Select one Region</option>"+regList+"</select>").append();
+		          			         };
+	 		 hr.send();
+			});
+			$("#RegList").change(function() {
+				var v_region;
+				v_region = $(":selected").val();
+				var hr = new XMLHttpRequest();
+				var myObj;
+				var appList;
+				var url='http://10.116.37.33:6060/api/application/app/'+ v_platform +"/"+v_region;
+				hr.open("GET", url, true);
+				hr.onload = function () {
+ 			        myObj = JSON.parse(hr.responseText);
+				  	for(var i=0;i<myObj.length;i++){
+					     appList = '<option value='+ myObj[i] +'>'+ myObj[i] +'</option>' + appList;
+						 			 }
+                              $("#AppList").attr("style", "")
+                              $("#searchApp").attr("style", "display:none;")
+                              $("#AppList").html("&#8594;<select id='appList'  class='custom-select'><option value='SEARCH'>SEARCH</option><option selected>Select one Application</option>"+appList+"</select>").append();
+
+															 };
+				hr.send();
+				});
+
+					$("#AppList").change(function() {
+						var v_region;
+						var v_app;
+						var v_updateDescTxt;
+
+						v_region = $(":selected").val();
+						v_app = $("#appList").val();
+            if (v_app == "SEARCH") {
+              $("#envList").html("&#8594;<form id='searchApp' ><input class='custom-select' type='search' placeholder='Search' aria-label='Search'>&#8594;&#8594;<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Search</button>").append();
+              $("#AppList").attr("style", "display:none;")
+
+            }else {
+						var hr = new XMLHttpRequest();
+						var myObj;
+            var myObj2;
+						var appList;
+						var envList = '';
+	          var url='http://10.116.37.33:6060/api/application/app/'+ v_platform +"/"+v_region+"/"+v_app;
+
+           hr.open("GET", url, true);
+		       hr.onload = function ()  {
+		 			    myObj = JSON.parse(hr.responseText);
+   				            for(var i=0;i<myObj.length;i++){
+	 				    envList = '<option value='+ myObj[i] +'>'+ myObj[i] +'</option>' + envList;
+			 		  }
+                 $("#envList").html("&#8594;<select id='envL'  class='custom-select'><option selected value=''>Select one Env</option>"+envList+"<option value='addEnviroment'>Add one Env</option></select>").append();
+					 };
+						hr.send();
+          }
+          	});
+
+            $("#alertsClose").click( function()
+                             {
+
+              $("#divALERTS").attr("style", "display:none;")
+            	});
+
+            $("#wasClose").click( function()
+                             {
+              $("#divWAS").attr("style", "display:none;")
+                             }
+            );
+            $("#pcfClose").click( function()
+                             {
+              $("#divPCF").attr("style", "display:none;")
+                             }
+            );
+            $("#tomcatClose").click( function()
+                             {
+              $("#divTOMCAT").attr("style", "display:none;")
+                             }
+            );
+            $("#gemfireClose").click( function()
+                             {
+              $("#divGEMFIRE").attr("style", "display:none;")
+                             }
+            );
+
+            $("#alerts").click( function()
+                             {
+              $("#divALERTS").attr("style", "style", "")
+              var hr = new XMLHttpRequest();
+              var myObj;
+              var varTd = '';
+              var url='http://10.116.37.33:6060/api/listAlerts';
+             hr.open("GET", url, true);
+             hr.onload = function ()  {
+                myObj = JSON.parse(hr.responseText);
+                console.log("Yon->"+myObj.length);
+                        for(var i=0;i<myObj.length;i++){
+                //varTd = '<tr class=\'table-Active\'><td>'+ myObj[i].description +'</td><td>'+ myObj[i].date +'</td><td>' + myObj[i].time +'</td><td>'+ myObj[i].details+'</td><td>'+ myObj[i].active+'</td></tr>'+varTd;
+                //console.log();
+                if (myObj[i].active == 'yes') {
+
+                //varTd = '<tr class=\'table-Active\'><td>'+ myObj[i].description +'</td><td>'+ myObj[i].date +'</td><td>' + myObj[i].time +'</td><td>'+ myObj[i].details+'</td><td><button type=\'button\' class=\'close alert-danger\' aria-label=\'Close\' id=\'alertsClean\' ><span aria-hidden=\'true\'>&times;</span></button></td></tr>'+varTd;
+                varTd = '<tr class=\'table-Active\'><td>'+ myObj[i].description +'</td><td>'+ myObj[i].date +'</td><td>' + myObj[i].time +'</td><td>'+ myObj[i].details+'</td></tr>'+varTd;
+
+                }
+              }
+                   $("#tableALERTS").html(varTd).append();
+                   $("#alertQty").html(myObj.length).append();
+             };
+              hr.send();
+
+                             } );
+
+
+              var current_tab1="";
+              var notified='0';
+						$("#envList").change(function() {
+							var v_region;
+							var v_app;
+							var v_env;
+							var current_tab="";
+
+             	v_region = $(":selected").val();
+							v_app = $("#appList").val();
+							v_env = $("#envL").val();
+
+							var hr = new XMLHttpRequest();
+							var hr2 = new XMLHttpRequest();
+							var myObj;
+							var myObj2;
+							var appList;
+							var envList;
+
+							var v_hosts='';
+
+							if(v_region==""){
+								alert("Please  select the REGION!")
+							}else if(v_app==""){
+								alert("Please  select the Aplication Name!")
+
+							}else if(v_env==""){
+								alert("Please  select the ENVIROMENT!")
+							}else if(v_env=="addEnviroment"){
+								var url='http://10.116.37.33:6060/Update.html?platform='+v_platform+'&region='+v_region+'&app='+v_app+'&env='+v_env;
+								window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=350,left=500,width=720,height=620");
+							}else{
+
+							var url='http://10.116.37.33:6060/api/application/app/'+ v_platform +"/"+v_region+"/"+v_app+"/"+v_env;
+              var url2='http://10.116.37.33:6060/api/application/app/'+ v_platform +"/"+v_region+"/"+v_app+"/action/desc";
+
+							hr.open("GET", url, true);
+							//hr2.open("GET", url, true);
+							hr.onload = function () {
+											myObj = JSON.parse(hr.responseText);
+												 if("WEBSPHERE" == v_platform )//WAS
+												  {
+													 						    if(myObj !== undefined)
+													                             {
+																					for(var i=0;i<myObj.length;i++){
+                                            $("#versionReportImg").attr("style", "display:none;");
+                                            $("#dumpsImg").attr("style", "display:none;");
+                                             if(v_app == "161223_CA" && notified == "0"){
+                                               alert("For access to   WebSphere Console disable the option \"Check for server certificate revocation follow the Handy steps!\"");
+                                               notified=99999;
+
+                                             }else if (v_app == "169395_IVRMEX") {
+                                               //alert("BUILD Team  will provided support for any CHG activity until this alert is activated! Check the Handy.\"");
+                                             }else if (v_app == "153026_AO" && v_env == "LOAD") {
+                                               $("#versionReportImg").attr("style", "");
+                                               $("#dumpsImg").attr("style", "")
+
+
+                                             }else if (v_app == "153026_AO" && v_env == "LOAD") {
+                                               $("#versionReportImg").attr("style", "");
+                                               $("#dumpsImg").attr("style", "")
+
+
+                                             }else if (v_app == "151369_JFP_LATAM" && notified == "0" ) {
+                                               alert("The P2x Linux migration is in progress. We will have new Linux Enviroments.  BUILD Team  will provided support for any CHG activity until this alert is activated! Check the Handy in the new LINUX envs.");
+                                               notified=99999;
+
+                                            }else if (v_app == "144564_CBOL" && v_env == "QA1") {
+                                              $("#versionReportImg").attr("style", "");
+                                              $("#dumpsImg").attr("style", "")
+                                              //setInterval(function(){blink()}, 1600);
+                                              //function blink() {$("#versionReportImg").fadeTo(100, 0.1).fadeTo(200, 1.0);}
+                                           }
+
+	                                           v_websphere='<td>'+v_app+'</td><td>'+v_env+'</td><td>'+myObj[0].envs[0].soid+'</td><td><a href='+myObj[0].envs[0].console+'?'+myObj[0].envs[0].password+'  target=\'_blank\'>Console</a></td><td><a href='+myObj[0].envs[0].deploy+'  target=\'_blank\'>Dowload RunBook</a>&ensp;<a href='+myObj[0].envs[0].handover+'  target=\'_blank\'>Dowload HandOver</a></td><td>'+myObj[0].envs[0].webHost+'</td>';
+
+                                                                        }
+
+							navBarLi = "<ul class='nav nav-tabs' id='myTab' role='tablist'>";
+							navBarDiv= "<div class='tab-content' id='myTabContent'>";
+
+							if( myObj[0].envs[0].mainactivities !== undefined && myObj[0].envs[0].mainactivities.length !== 0){
+
+							for(var i=0;i<myObj[0].envs[0].mainactivities.length;i++){
+							navBarLi = navBarLi + "<li class='nav-item'><a class='nav-link' id='"+i+"-tab' data-toggle='tab' href='#"+i+"' role='tab' aria-controls='"+i+"' aria-selected='true'>"+myObj[0].envs[0].mainactivities[i].nameActivity+"</a></li>";
+							navBarDiv = navBarDiv +"<div class='tab-pane fade ' id='"+i+"' role='tabpanel' aria-labelledby='"+i+"-tab'><textarea class='form-control' id='updateDescText"+i+"' rows='20'>"+myObj[0].envs[0].mainactivities[i].descriptionActivity+"</textarea></div>";
+   						}
+							navBarLi = navBarLi + "</ul>";
+
+							v_wasDesc= navBarLi + navBarDiv + "</div>";
+							 $("#UpdateMainactivitiesDescFunction").removeAttr("disabled");
+
+
+						}else{
+
+              $("#UpdateMainactivitiesDescFunction").attr("disabled", "disabled");
+							navBarLi = navBarLi + "<li class='nav-item'><a class='nav-link' id='-tab' data-toggle='tab' href='#' role='tab' aria-controls='' aria-selected='true'>Add new TAB</a></li>";
+							navBarDiv = navBarDiv +"<div class='tab-pane fade ' id='' role='tabpanel' aria-labelledby='-tab'><textarea class='form-control' id='updateDescText' rows='20'>Add new TAB</textarea></div>";
+							navBarLi = navBarLi + "</ul>";
+							v_wasDesc= navBarLi + navBarDiv + "</div>";
+							v_wasDesc="";
+
+						}
+
+							$("#tableWASDesc").html(v_wasDesc).append();
+								$('.nav-tabs a').on('shown.bs.tab', function (e) {
+									current_tab1 = e.target.toString();
+									current_tab1 = current_tab1.replace(/http:\/\/10.116.37.33:6060\/\#/i,"");
+
+									});
+
+																								 $("#divPCF").attr("style", "display:none;")
+																								 $("#divGEMFIRE").attr("style", "display:none;")
+																								 $("#divTOMCAT").attr("style", "display:none;")
+                                                 $("#divALERTS").attr("style", "display:none;")
+																								 $("#divWAS").attr("style", "")
+
+																								 $("#tableWAS").html(v_websphere).append();
+
+													 						    v_websphere="";
+													 							v_hosts="";
+													 						  }
+
+															}else if ("PCF" == v_platform ) {
+																if(myObj !== undefined)
+																for(var i=0;i<myObj.length;i++){
+//console.log("Entro");
+v_pcf='<td>'+v_env+'</td><td>'+myObj[0].envs[0].jumpBox+'</td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].AppMng+' target=\'_blank\'>Apps Mng Console</a></td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].SvnRepo+' target=\'_blank\'>SVN</td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].SvnStaging+'target=\'_blank\'>SVN Stage</a></td><td>'+myObj[0].envs[0].AppDController.toString()+'</td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].Splunk+'target=\'_blank\'>Splunk</a></td>';
+v_pcfDesc="<textarea class='form-control' id='updateDescTxt' rows='20'>"+myObj[0].envs[0].description +"</textarea>"																						}
+
+																			 $("#divPCF").attr("style", "")
+																			 $("#divWAS").attr("style", "display:none;")
+																			 $("#divGEMFIRE").attr("style", "display:none;")
+																			 $("#divTOMCAT").attr("style", "display:none;")
+                                       $("#divALERTS").attr("style", "display:none;")
+																			  $("#tablePCFDesc").html(v_pcfDesc).append();
+																			 //onsole.log(v_pcf);
+																			 $("#tablePCF").html(v_pcf).append();
+
+																v_websphere="";
+															v_hosts="";
+														}else if ("TOMCAT" == v_platform ) {
+																if(myObj !== undefined)
+																for(var i=0;i<myObj.length;i++){
+
+v_tomcat='<td>'+v_env+'</td><td>'+myObj[0].envs[0].Server+'</td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].deploy+' target=\'_blank\'>Doc</a></td>';
+
+v_tomcatDesc="<textarea class='form-control' id='updateDescTxtTOMCAT' rows='20'  class='table-warning'>"+myObj[0].envs[0].descripton +"</textarea>"																						}
+
+																			 $("#divPCF").attr("style", "display:none;")
+																			 $("#divWAS").attr("style", "display:none;")
+																			 $("#divGEMFIRE").attr("style", "display:none;")
+                                       $("#divALERTS").attr("style", "display:none;")
+																			 $("#divTOMCAT").attr("style", "")
+																			  $("#tableTOMCATDesc").html(v_tomcatDesc).append();
+																			 //onsole.log(v_pcf);
+																			 $("#tableTOMCAT").html(v_tomcat).append();
+
+																v_tomcat="";
+															v_hosts="";
+														}else if ("GEMFIRE" == v_platform ) {
+																	if(myObj !== undefined)
+																	for(var i=0;i<myObj.length;i++){
+
+	v_gemfire='<td>'+v_env+'</td><td>'+myObj[0].envs[0].Server+'</td><td>'+myObj[0].envs[0].AdminL+'</td><td>'+myObj[0].envs[0].Locator+'</td><td>'+myObj[0].envs[0].Cache+'</td><td><a class=\'btn btn-link\' href='+myObj[0].envs[0].deploy+' target=\'_blank\'>Doc</a></td>';
+
+	v_gemfireDesc="<textarea class='form-control' id='updateDescTxtGEMFIRE' rows='20'  class='table-info'>"+myObj[0].envs[0].descripton +"</textarea>"																						}
+
+																				 $("#divPCF").attr("style", "display:none;")
+																				 $("#divWAS").attr("style", "display:none;")
+																				 $("#divTOMCAT").attr("style", "display:none;")
+                                         $("#divALERTS").attr("style", "display:none;")
+																				 $("#divGEMFIRE").attr("style", "")
+																				  $("#tableGEMFIREDesc").html(v_gemfireDesc).append();
+																				 $("#tableGEMFIRE").html(v_gemfire).append();
+
+																	v_tomcat="";
+																v_hosts="";
+																}
+														  }
+														}
+
+							hr.send();
+
+							//hr2.send();
+							});
+
+							$("#UpdateMainactivitiesDescFunction").click(
+								 function() {
+									 Json_cadena_UpdateMainactivitiesDescFunction = "";
+									 v_updateDescTxt1 = $("#updateDescText"+current_tab1).val();
+									 v_updateDescTxt  = v_updateDescTxt1.replace(/(?:\r\n|\r|\n)/g, '\\n')
+									 v_platform=$(":checked").val();
+									 v_region =$("#regL").val();
+									 v_app = $("#appList").val();
+									 v_env = $("#envL").val();
+
+									 var uri='http://10.116.37.33:6060/api/UpdateMainactivitiesDesc';
+									 Json_cadena_UpdateMainactivitiesDescFunction    = JSON.stringify({platform:v_platform,region:v_region,app:v_app,env:v_env,description:v_updateDescTxt,number:current_tab1});
+
+							 $.ajax({
+											 type : 'POST',
+											 data : Json_cadena_UpdateMainactivitiesDescFunction,
+											 dataType: 'json',
+											 url  : uri,
+											 success: function() {
+																			alert("The  description was  updated sucessfully!");
+																			window.close();
+																		},
+											 error: function(err){  console.log(err) },
+											 headers : {'Content-Type':'application/json','charset':'utf-8'},
+									 });
+								});
+
+								$("#AddTab").click( function()
+										 {
+											 v_platform=$(":checked").val();
+											 v_region =$("#regL").val();
+											 v_app = $("#appList").val();
+											 v_env = $("#envL").val();
+											var url='http://10.116.37.33:6060/add_desc.html?platform='+v_platform+'&region='+v_region+'&app='+v_app+'&env='+v_env;
+											window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=500,left=500,width=420,height=420");
+										 }
+								);
+                $("#versionReportImg").click( function()
+                     {
+
+                       v_platform=$(":checked").val();
+                       v_region =$("#regL").val();
+                       v_app = $("#appList").val();
+                       v_env = $("#envL").val();
+                      var url='http://10.116.37.33:6060/form_versionR.html?platform='+v_platform+'&region='+v_region+'&app='+v_app+'&env='+v_env;
+                      window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=500,left=500,width=420,height=420");
+                     }
+                );
+                $("#dumpsImg").click( function()
+                     {
+
+                       v_platform=$(":checked").val();
+                       v_region =$("#regL").val();
+                       v_app = $("#appList").val();
+                       v_env = $("#envL").val();
+                      var url='http://10.116.37.33:6060/form_Dumps.html?platform='+v_platform+'&region='+v_region+'&app='+v_app+'&env='+v_env;
+                      window.open(url,"_blank", "location=no,status=1,resizable=1,scrollbars=1,top=500,left=500,width=420,height=420");
+                     }
+                );
+
+          $("#PCFSupport").click(function() {
+						var url='https://login.run.pivotal.io/login';
+						window.open(url,'_blank');
+					});
+					$("#GPCFSupport").click(function() {
+						var url='https://login.run.pivotal.io/login';
+						window.open(url,'_blank');
+					});
+
+					$("#PCFSupportLogs").click(function() {
+
+            var url='https://securefiles.pivotal.io/dropzone/customer-service/XXXXX';
+           alert("After collecting the logs, upload them to vendor. First create a ticket. XXXXX is the ticket #");
+					 	window.open(url,'_blank');
+
+						var url='https://login.run.pivotal.io/login';
+						window.open(url,'_blank');
+					});
+					$("#GPCFSupportLogs").click(function() {
+
+            var url='https://securefiles.pivotal.io/dropzone/customer-service/XXXXX';
+           alert("After collecting the logs, upload them to vendor. First create a ticket. XXXXX is the ticket #");
+					 	window.open(url,'_blank');
+
+						var url='https://login.run.pivotal.io/login';
+						window.open(url,'_blank');
+					});
+
+					$("#updateDesc").click(function() {
+
+                    v_platform=$(":checked").val();
+                    v_region =$("#regL").val();
+										v_app = $("#appList").val();
+										v_env = $("#envL").val();
+										var uri='http://10.116.37.33:6060/api/UpdateApplicationDesc';
+										v_updateDescTxt = $("#updateDescTxt").val();
+
+										if("WEBSPHERE" == v_platform )//WAS
+										 {
+
+                    Json_cadena    = JSON.stringify({platform:v_platform,region:v_region,app:v_app,env:v_env,description:v_updateDescTxt});
+                    console.log(Json_cadena)
+										$.ajax({
+							      type : 'POST',
+							      data : Json_cadena,
+							      dataType: 'json',
+							      url  : uri,
+							      success: function() {
+							                             alert("The  description was  updated sucessfully!");
+							                             window.close();
+							                           },
+							      error: function(err){  console.log(err) },
+							      headers : {'Content-Type':'application/json','charset':'utf-8'},
+
+							    });
+							}else {
+								if("PCF" == v_platform )//WAS
+								 {
+
+								Json_cadena    = JSON.stringify({platform:v_platform,region:v_region,app:v_app,env:v_env,description:v_updateDescTxt});
+
+								$.ajax({
+								type : 'POST',
+								data : Json_cadena,
+								dataType: 'json',
+								url  : uri,
+								success: function() {
+																			 alert("The  description was  updated sucessfully!");
+																			 window.close();
+																		 },
+								error: function(err){  console.log(err) },
+								headers : {'Content-Type':'application/json','charset':'utf-8'},
+
+							});
+						}
+					  }
+						});
+
+$("#updateDescGEMFIRE").click(function() {
+
+					v_platform=$(":checked").val();
+					v_region =$("#regL").val();
+					v_app = $("#appList").val();
+					v_env = $("#envL").val();
+
+					var uri='http://10.116.37.33:6060/api/UpdateApplicationDesc';
+					v_updateDescTxt = $("#updateDescTxtGEMFIRE").val();
+
+					Json_cadena    = JSON.stringify({platform:v_platform,region:v_region,app:v_app,env:v_env,description:v_updateDescTxt});
+
+					$.ajax({
+					type : 'POST',
+					data : Json_cadena,
+					dataType: 'json',
+					url  : uri,
+					success: function() {
+																 alert("The  description was  updated sucessfully!");
+																 window.close();
+															 },
+					error: function(err){  console.log(err) },
+					headers : {'Content-Type':'application/json','charset':'utf-8'},
+				});
+	});
+	$("#updateDescTOMCAT").click(function() {
+						v_platform=$(":checked").val();
+						v_region =$("#regL").val();
+						v_app = $("#appList").val();
+						v_env = $("#envL").val();
+						var uri='http://10.116.37.33:6060/api/UpdateApplicationDesc';
+						v_updateDescTxt = $("#updateDescTxtTOMCAT").val();
+						Json_cadena    = JSON.stringify({platform:v_platform,region:v_region,app:v_app,env:v_env,description:v_updateDescTxt});
+						$.ajax({
+						type : 'POST',
+						data : Json_cadena,
+						dataType: 'json',
+						url  : uri,
+						success: function() {
+																	 alert("The  description was  updated sucessfully!");
+																	 window.close();
+																 },
+						error: function(err){  console.log(err) },
+						headers : {'Content-Type':'application/json','charset':'utf-8'},
+
+					});
+		});
+
+							$("#addActionTrackerB").click(function(){
+
+			            var v_desc = $("#desc").val();
+			            var v_soid = $("#soid").val();
+			            var v_lob = $("#lob").val();
+			            var v_date = $("#date").val();
+			            var v_status = $("#status").val();
+			            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + v_desc + "</td><td>" + v_soid + "</td><td>" + v_lob + "</td><td>" + v_date + "</td><td>" + v_status + "</td></tr>";
+			            $("table#AddActionTracker tbody").append(markup);
+			        });
+			        $("#deleteActionTrackerB").click(function(){
+								console.log("delteActionTracker");
+			            $("#addActionTracker tbody").find('input[name="record"]').each(function(){
+			                if($(this).is(":checked")){
+			                    $(this).parents("tr").remove();
+			                }
+			            });
+			        });
+
+</script>
+<script type='text/javascript'>$(document).ready(function () {	});</script>
