@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://login.run.pivotal.io/login -->
+<html dir="ltr" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta name="author" content="Web Middleware L2">
+    <meta name="copyright" content="©2018 Citi | GCT CTO | WEB Middleware L2.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="./css/wiki-ui.min.css">
+    <link rel="stylesheet" media="screen" href="./css/flexbox.css">
+    <link rel="stylesheet" media="screen" href="./css/chooser.css">
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/jquery-3.2.1.slim.min.js"></script>
+      <script src="js/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script src="js/moment-with-locales.js"></script>
+      <script src="js/bootstrap-datetimepicker.js"></script>
+      <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+      <script type="text/javascript" src="js/bootstrap.js"></script>
+      <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="js/lodash.js"></script>
+  </head>
+    <title>Wiki L2</title>
+
+
+
+
+<body class="bg-neutral-10 login">
+
+    <div class="page">
+     <div class="login-email panel panel-basic bg-neutral-11 mvxl paxl">
+        <div class="panel-body">
+            <div class="txt-c paxl">
+                <img class="img-responsive logo" src="./img/citi.png">
+
+            </div>
+            <div>
+<h4 class="txt-c pbxxl ptxl">Create your WikiL2 Account</h4>
+
+  <input type="hidden" name="X-Uaa-Csrf" value="55Hb6LLqhFj5YDoLBuBRos">
+    <input class="" name="commit" type="submit" value="Next" hidden="true">
+    <div class="form-group email_address_field">
+        <div style="height: 42px">
+          <div id="email_div"  style="">
+           <label for="EMAIL">EMAIL</label><BR>
+            <input class="form-control" id="email" name="email" autofocus="true" placeholder="email" style="width: 100%; float: left">
+            <input id='continue' class="btn btn-highlight btn-block btn-lg" type="submit" value="SignUp">
+
+
+          </div>
+          <div class="alert alert-danger" role="alert" style="display:none;"  id="error_div">
+             Sorry this email account is not valid.!
+         </div>
+         <div class="alert alert-danger" role="alert" style="display:none;"  id="error_exist_div">
+            Sorry this email account has already been registered. <a id='resetPassword'>Click On</a> for resset your password!
+        </div>
+        <div class="alert alert-primary" role="alert" style="display:none;"  id="sucess_reset_div">
+           The password reset was sucessfull. Redirected to the login page
+       </div>
+       <div class="alert alert-danger" role="alert" style="display:none;"  id="sucess_reset_div">
+          The password can not be completed. Please send us one email to: yonatan.espitia@citi.com
+      </div>
+
+          <br>
+          <div id='password_div' style="display:none;">
+           <label for="EMAIL">PASSWORD</label><BR>
+              <input class="form-control"  type="password" id="password" name="password" autofocus="true" placeholder="password " style="width: 100%; float: left">
+           <label for="EMAIL">CONFIRM PASSWORD</label>
+              <input class="form-control"  type="password" id="password2" name="password2" autofocus="true" placeholder="password2 " style="width: 100%; float: left">
+             <input id='SignUp' class="btn btn-highlight btn-block btn-lg" type="submit" value="SignUp">
+          </div>
+          <div id='password_newaccount_div' style="display:none;">
+           <label for="EMAIL">PASSWORD</label><BR>
+              <input class="form-control"  type="password" id="passwordNew" name="password" autofocus="true" placeholder="password " style="width: 100%; float: left">
+           <label for="EMAIL">CONFIRM PASSWORD</label>
+              <input class="form-control"  type="password" id="password2New" name="password2" autofocus="true" placeholder="password2 " style="width: 100%; float: left">
+             <input id='SignUpNew' class="btn btn-highlight btn-block btn-lg" type="submit" value="SignUp">
+          </div>
+          <div id='password_reset_div' style="display:none;">
+           <label for="EMAIL">PASSWORD</label><BR>
+              <input class="form-control"  type="password" id="Rpassword" name="Rpassword" autofocus="true" placeholder="password " style="width: 100%; float: left">
+           <label for="EMAIL">CONFIRM PASSWORD</label>
+              <input class="form-control"  type="password" id="Rpassword2" name="Rpassword2" autofocus="true" placeholder="password2 " style="width: 100%; float: left">
+             <input id='resetBtn' class="btn btn-highlight btn-block btn-lg" type="submit" value="Reset my password">
+          </div>
+
+        </div>
+
+    </div>
+
+
+    <hr class="divider-alternate-1">
+</div>
+        </div>
+     </div>
+    </div>
+
+    <div class="txt-c type-neutral-5 type-sm footer-text mvl" >
+        ©2018 Citi | GCT CTO | WEB Middleware L2.
+    </div>
+</body></html>
+<script type="text/javascript">
+$("#SignUpNew").click(
+   function() {
+
+     v_email = $("#email").val();
+     v_passwordNew  = $("#passwordNew").val();
+     v_password2New  = $("#password2New").val();
+     if (v_passwordNew == v_password2New) {
+       var uri='http://10.116.37.33:6060/api/account/register';
+       Json_cadena    = JSON.stringify({email:v_email,password:v_passwordNew});
+       $.ajax({
+               type : 'POST',
+               data : Json_cadena,
+               dataType: 'json',
+               url  : uri,
+               success: function() {
+                 $("#sucess_reset_div").attr("style", "");
+                $("#password_newaccount_div").attr("style", "display:none;");
+                  window.setTimeout(function(){
+                      window.location.href = "http://10.116.37.33:6060/";
+
+                  }, 3000);
+
+                            },
+                            error: function(err){
+
+                               console.log("Error") },
+               headers : {'Content-Type':'application/json','charset':'utf-8'},
+           });
+           //$("#email_div").attr("style", "display:none;");
+           //$("#password_div").attr("style", "display:none;");
+
+    }else {
+      alert("The passwords no match!!");
+    }
+
+  });
+$("#SignUp").click(
+   function() {
+
+     v_email = $("#email").val();
+     v_password  = $("#password").val();
+     v_password2  = $("#password2").val();
+     if (v_password == v_password2) {
+       var uri='http://10.116.37.33:6060/api/account/register';
+       Json_cadena    = JSON.stringify({email:v_email,password:v_password});
+       $.ajax({
+               type : 'POST',
+               data : Json_cadena,
+               dataType: 'json',
+               url  : uri,
+               success: function() {
+               console.log("sucess");
+
+                            },
+                            error: function(err){
+
+                               console.log("Error") },
+               headers : {'Content-Type':'application/json','charset':'utf-8'},
+           });
+           //$("#email_div").attr("style", "display:none;");
+           //$("#password_div").attr("style", "display:none;");
+
+    }else {
+      alert("The passwords no match!!");
+    }
+
+  });
+  $("#resetPassword").click(
+     function() {
+    $("#error_exist_div").attr("style", "display:none;");
+     $("#password_reset_div").attr("style", "");
+   });
+   $("#resetBtn").click(
+      function() {
+     v_password  = $("#Rpassword").val();
+     v_password2  = $("#Rpassword2").val();
+     if (v_password == v_password2) {
+       var uri='http://10.116.37.33:6060/api/account/resetPassword';
+       Json_cadena    = JSON.stringify({email:v_email,password:v_password});
+       $.ajax({
+               type : 'POST',
+               data : Json_cadena,
+               dataType: 'json',
+               url  : uri,
+               success: function() {
+               console.log("sucess");
+               $("#sucess_reset_div").attr("style", "");
+                $("#password_reset_div").attr("style", "display:none;");
+                window.setTimeout(function(){
+                    window.location.href = "http://10.116.37.33:6060/";
+
+                }, 3000);
+                            },
+                            error: function(err){
+
+                                 $("#error_reset_div").attr("style", "");
+                                 window.setTimeout(function(){
+                                     window.location.href = "http://10.116.37.33:6060/";
+
+                                 }, 3000);
+
+                              },
+
+               headers : {'Content-Type':'application/json','charset':'utf-8'},
+           });
+           //$("#email_div").attr("style", "display:none;");
+           //$("#password_div").attr("style", "display:none;");
+
+    }else {
+      alert("The passwords no match!!");
+    }
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $("#continue").click(
+     function() {
+       //console.log("entro");
+       v_email = $("#email").val();
+       isL2 = false;
+       existAcount = false;
+       //console.log(v_email);
+       var uri='http://10.116.37.33:6060/api/account/entitlements';
+       var uri2='http://10.116.37.33:6060/api/account/registerV';
+       Json_cadena  = JSON.stringify({email:v_email});
+       //console.log(Json_cadena);
+       $.ajax({
+               type : 'POST',
+               data : Json_cadena,
+               dataType: 'json',
+               url  : uri,
+               success: function(respond) {
+                 console.log(respond);
+                 if (respond.length > 0) {
+                   //$("#email_div").attr("style", "display:none;");
+                   //$("#password_div").attr("style", "");
+                  isL2 = true;
+                  console.log("Entro "+isL2);
+                 }else {
+                   $("#error_div").attr("style", "");
+                   $("#email_div").attr("style", "display:none;");
+                   window.setTimeout(function(){
+                       window.location.href = "http://10.116.37.33:6060/";
+
+                   }, 3000);
+                 }
+                            },
+               error: function(err){
+
+                  console.log(err) },
+               headers : {'Content-Type':'application/json','charset':'utf-8'},
+           });
+
+
+           $.ajax({
+                   type : 'POST',
+                   data : Json_cadena,
+                   dataType: 'json',
+                   url  : uri2,
+                   success: function(respond) {
+                     console.log(respond);
+                     if (respond.length > 0) {
+                       $("#error_exist_div").attr("style", "");
+                       $("#email_div").attr("style", "display:none;");
+                       $("#password_div").attr("style", "display:none;");
+
+
+                     }else if (respond.length == 0) {
+                       $("#email_div").attr("style", "display:none;");
+                      $("#password_newaccount_div").attr("style", "");
+                        console.log("Email no exits")
+                     }
+
+
+                     // $("#error_div").attr("style", "");
+                                },
+                   error: function(err){
+
+                      console.log(err) },
+                   headers : {'Content-Type':'application/json','charset':'utf-8'},
+               });
+
+    });
+
+
+
+
+
+
+</script>
